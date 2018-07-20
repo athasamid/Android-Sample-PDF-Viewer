@@ -1,7 +1,7 @@
 # Sample PDF Viewer
 This is a sample project to view pdf from link/url
 
-![](assets/demo.mov)
+![](assets/demo.gif)
 
 ### Libraries
 - [barteksc/AndroidPdfViewer](https://github.com/barteksc/AndroidPdfViewer)
