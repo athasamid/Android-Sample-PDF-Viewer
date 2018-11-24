@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         pdfViewer = findViewById(R.id.pdfViewer);
         info = findViewById(R.id.info);
 
-        // Request Permissions
+        // Request Runtime Permissions for Android Marshmellow or above
         requestPermissions();
     }
 
@@ -102,15 +102,21 @@ public class MainActivity extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private void downloadAndViewPdf(String url){
+        // Get filename from url ex: https://athasamid.com/files/presentation.pdf
+        // it will return 'presentation.pdf'
         Pattern pattern = Pattern.compile("[^/]*$");
         Matcher matcher = pattern.matcher(url);
+        
+        //check if pattern didn't match so return from this function
         if (!matcher.find())
             return;
 
+        // assign filename from regex to variable
         final String filename = matcher.group();
 
         Log.e("filename", filename);
-
+        
+        // Getting file from local storage
         File file = new File(getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), filename);
 
         // Check if file not exist then download it first, otherwise view pdf
@@ -124,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
                     .setDownloadProgressListener(new DownloadProgressListener() {
                         @Override
                         public void onProgress(long bytesDownloaded, long totalBytes) {
-                            //Log.e("downloading", (int) ((bytesDownloaded*100)/totalBytes)+"");
+                            // Show loading progress
                             info.setText("Sedang mengunduh\n"+((int) ((bytesDownloaded*100)/totalBytes))+"%");
                         }
                     })
